@@ -75,16 +75,21 @@ export class RetencionService {
   }
 
   private calculateRetencion(statuses: StudentStatus[]): ResumenAnual[] {
-    // Group statuses by admission year, storing rut and cod_programa
-    const yearMap = new Map<string, Map<string, string>>();
+    // Group statuses by admission year, storing all rut-programa pairs
+    const yearMap = new Map<string, Map<string, Set<string>>>();
     
     statuses.forEach((status) => {
-      // Only count students with status 'M' (Matriculado)
+      // Only count students with status 'M' (Matriculado) in their admission year
       if (status.year_admision === status.year_estado && status.cod_estado === 'M') {
         if (!yearMap.has(status.year_admision)) {
           yearMap.set(status.year_admision, new Map());
         }
-        yearMap.get(status.year_admision)!.set(status.rut, status.cod_programa);
+        const rutMap = yearMap.get(status.year_admision)!;
+        
+        if (!rutMap.has(status.rut)) {
+          rutMap.set(status.rut, new Set());
+        }
+        rutMap.get(status.rut)!.add(status.cod_programa);
       }
     });
 
@@ -94,14 +99,15 @@ export class RetencionService {
     for (const [year, rutProgramMap] of yearMap.entries()) {
       const nextYear = (parseInt(year) + 1).toString();
       
-      // Find statuses from this admission year who have records in the next year
+      // Find students who continued in at least one of their programs (carreras) the next year
       const retainedRuts = new Set<string>();
+      
       statuses.forEach((status) => {
         if (
           rutProgramMap.has(status.rut) &&
           status.year_estado === nextYear &&
           status.cod_estado === 'M' &&
-          status.cod_programa === rutProgramMap.get(status.rut)
+          rutProgramMap.get(status.rut)!.has(status.cod_programa)
         ) {
           retainedRuts.add(status.rut);
         }

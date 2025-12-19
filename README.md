@@ -69,6 +69,12 @@ Tasa de Retención = (Matriculados Año Siguiente / Matriculados Primera Vez)
 Porcentaje de Retención: Tasa de Retencion × 100 (No es calculado por la API)
 ```
 
+### Notas
+
+Si un estudiante está matriculado por primera vez en más de una carrera el mismo año (o el registro de la misma carrera está repetido), solo debe cumplir el criterio de matriculado año siguiente en una de estas carreras para ser considerado retenido. Ademas, solo será contado una vez al momento de calcular la tasa general. 
+
+Por otra parte, si es que está matriculado por primera vez en multiples carreras, y cumple el criterio de matriculado año siguiente para más de una de estas, será considerado para todas las tasas por carrera en las que cumpla el criterio (pero solo una vez en el conteo general).
+
 ---
 
 ## Endpoints Disponibles
@@ -122,14 +128,14 @@ GET /api/retencion/resumen?from=2015&to=2020
   {
     "year": "2015",
     "matriculados_primera_vez": 2429,
-    "matriculados_anio_siguiente": 1825,
-    "tasa_retencion": 0.75
+    "matriculados_anio_siguiente": 1900,
+    "tasa_retencion": 0.78
   },
   {
     "year": "2016",
     "matriculados_primera_vez": 2511,
-    "matriculados_anio_siguiente": 1930,
-    "tasa_retencion": 0.77
+    "matriculados_anio_siguiente": 1949,
+    "tasa_retencion": 0.78
   },
   ...
 ]
