@@ -31,3 +31,7 @@ lerna-debug.log*
 
 # Data
 /data/*
+
+# Misc
+/docs/*
+/docs

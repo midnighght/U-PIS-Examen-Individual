@@ -1,37 +1,61 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
-import { RetencionService } from './retencion.service';
-import { StudentState } from './interfaces/student-state.repository';
+import { Controller, Get, Query } from '@nestjs/common';
+import { RetencionService, ResumenAnual, ResumenCarrera } from './retencion.service';
+import { StudentStatus, Carrera, FilterOptions } from './interfaces/student-status.repository';
 
 @Controller('retencion')
 export class RetencionController {
   constructor(private readonly retencionService: RetencionService) {}
 
   @Get()
-  async findAll(): Promise<StudentState[]> {
-    return this.retencionService.findAll();
+  async findAll(
+    @Query('from') from?: string,
+    @Query('to') to?: string,
+    @Query('cod_estado') cod_estado?: string,
+    @Query('cod_admision') cod_admision?: string,
+    @Query('cod_programa') cod_programa?: string,
+  ): Promise<StudentStatus[]> {
+    const filters: FilterOptions = {
+      from,
+      to,
+      cod_estado,
+      cod_admision,
+      cod_programa,
+    };
+    return this.retencionService.findAll(filters);
   }
 
-  @Get(':id')
-  async findById(@Param('id') id: string): Promise<StudentState | null> {
-    return this.retencionService.findById(id);
+  @Get('resumen')
+  async getResumen(
+    @Query('from') from?: string,
+    @Query('to') to?: string,
+    @Query('cod_admision') cod_admision?: string,
+  ): Promise<ResumenAnual[]> {
+    const filters: FilterOptions = {
+      from,
+      to,
+      cod_admision,
+    };
+    return this.retencionService.getResumen(filters);
   }
 
-  @Post()
-  async create(@Body() studentState: Omit<StudentState, 'id'>): Promise<StudentState> {
-    return this.retencionService.create(studentState);
+  @Get('resumen/carreras')
+  async getResumenByCarrera(
+    @Query('from') from?: string,
+    @Query('to') to?: string,
+    @Query('cod_admision') cod_admision?: string,
+    @Query('cod_programa') cod_programa?: string,
+  ): Promise<ResumenCarrera[]> {
+    const filters: FilterOptions = {
+      from,
+      to,
+      cod_admision,
+      cod_programa,
+    };
+    return this.retencionService.getResumenByCarrera(filters);
   }
 
-  @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() studentState: Partial<StudentState>,
-  ): Promise<StudentState | null> {
-    return this.retencionService.update(id, studentState);
-  }
-
-  @Delete(':id')
-  async delete(@Param('id') id: string): Promise<{ success: boolean }> {
-    const success = await this.retencionService.delete(id);
-    return { success };
+  @Get('carreras')
+  async getCarreras(): Promise<Carrera[]> {
+    return this.retencionService.getCarreras();
   }
 }

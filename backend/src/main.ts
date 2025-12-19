@@ -13,7 +13,7 @@ async function bootstrap() {
   // Enable CORS - Allow all origins in development
   app.enableCors({
     origin: true, // Allows all origins (use specific origins in production)
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    methods: ['GET'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   });

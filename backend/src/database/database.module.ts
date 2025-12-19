@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { JsonStudentStateRepository } from './repositories/json-student-state.repository';
+import { JsonStudentStatusRepository } from './repositories/json-student-status.repository';
 
 @Module({
-  providers: [JsonStudentStateRepository],
-  exports: [JsonStudentStateRepository],
+  providers: [JsonStudentStatusRepository],
+  exports: [JsonStudentStatusRepository],
 })
 export class DatabaseModule {}
