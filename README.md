@@ -129,13 +129,13 @@ GET /api/retencion/resumen?from=2015&to=2020
     "year": "2015",
     "matriculados_primera_vez": 2429,
     "matriculados_anio_siguiente": 1900,
-    "tasa_retencion": 0.78
+    "tasa_retencion": 0.7822
   },
   {
     "year": "2016",
     "matriculados_primera_vez": 2511,
     "matriculados_anio_siguiente": 1949,
-    "tasa_retencion": 0.78
+    "tasa_retencion": 0.7762
   },
   ...
 ]
@@ -167,7 +167,7 @@ GET /api/retencion/resumen/carreras?cod_programa=8683
     "year": "2011",
     "matriculados_primera_vez": 71,
     "matriculados_anio_siguiente": 50,
-    "tasa_retencion": 0.7,
+    "tasa_retencion": 0.7042,
     "cod_programa": "8683",
     "nombre_programa": "INGENIERÍA CIVIL METALÚRGICA"
   },
@@ -175,7 +175,7 @@ GET /api/retencion/resumen/carreras?cod_programa=8683
     "year": "2012",
     "matriculados_primera_vez": 80,
     "matriculados_anio_siguiente": 55,
-    "tasa_retencion": 0.69,
+    "tasa_retencion": 0.6875,
     "cod_programa": "8683",
     "nombre_programa": "INGENIERÍA CIVIL METALÚRGICA"
   },

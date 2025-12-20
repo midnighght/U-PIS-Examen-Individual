@@ -75,7 +75,7 @@ export class RetencionService {
   }
 
   private calculateRetencion(statuses: StudentStatus[]): ResumenAnual[] {
-    // Group statuses by admission year, storing all rut-programa pairs
+    // Group statuses by admission year, storing all rut-programa pairs (estudiante-carrera)
     const yearMap = new Map<string, Map<string, Set<string>>>();
     
     statuses.forEach((status) => {
@@ -124,7 +124,7 @@ export class RetencionService {
         year,
         matriculados_primera_vez,
         matriculados_anio_siguiente,
-        tasa_retencion: Math.round(tasa_retencion * 100) / 100,
+        tasa_retencion: Math.round(tasa_retencion * 10000) / 10000, // Round to 4 decimal places (for XX.XX% format)
       });
     }
 
