@@ -79,10 +79,13 @@ Por otra parte, si es que está matriculado por primera vez en multiples carrera
 
 ## Endpoints Disponibles
 
-### Base URL
+### URL Base
 ```
-http://localhost:5000/api/retencion
+http://localhost:5000/api/
 ```
+
+Los endpoints se pueden probar con **Swagger** desde la URL base de la API o directamente como se explica a continuación.
+
 
 ### 1. Obtener Todos los Registros
 
